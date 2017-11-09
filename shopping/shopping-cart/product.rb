@@ -36,6 +36,10 @@ def base_price=(base_price)
   @base_price=base_price
 end
 
+def total_price=(total_price)
+  @total_price=total_price
+end
+
 def self.listings
   @@Product_list.each do |item|
     puts "Item name: #{item.name}"
@@ -59,17 +63,22 @@ def self.all_names
   @@Product_list_names
 end
 
-def total_price=(total_price)
-  @total_price = @base_price + (@base_price*@tax_rate)
+
+
+def self.total_price_calc
+  @@Product_list.each do |item|
+    item.total_price = item.base_price + (item.base_price * item.tax_rate)
+  end
 end
 
 end
-
 Product.create("Book", 20)
 Product.create("Mop", 10)
 Product.create("Laptop", 1500)
+
+Product.total_price_calc
 #
-# puts Product.all.inspect
+puts Product.all.inspect
 # puts Product.all_names.inspect
 # Product.listings
 
